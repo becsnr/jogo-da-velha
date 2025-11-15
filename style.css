@@ -38,6 +38,13 @@ section#jogo div.casa {
     border-right: 3px solid black;
 }
 
+section#res {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 section#res input {
     width: 100px;
     padding: 10px;

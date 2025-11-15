@@ -43,12 +43,14 @@ function checarVitória() {
     for (let [a, b, c] of linhasVitoria) {
         if (tabuleiro[a] !== "" && tabuleiro[a] === tabuleiro[b] && tabuleiro[b] === tabuleiro[c]) {
             resultado.innerHTML = `Vitória do jogador ${tabuleiro[a]}!`.toUpperCase();
+            resultado.style.color = 'green';
             jogoAtivo = false;
             return;
         }
     } // EMPATE
     if (!tabuleiro.includes("")) {
         resultado.innerHTML = 'Deu velha'.toUpperCase();
+        resultado.style.color = 'brown';
         jogoAtivo = false;
     }
 }
