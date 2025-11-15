@@ -1,11 +1,10 @@
 const casas = document.querySelectorAll('.casa'); // pega todas as casas
-const res = document.getElementById('res');
 let resultado = document.getElementById('resultado');
-
-let jogoAtivo = true; 
-
+ 
 let jogador = "x";
 let tabuleiro = ["", "", "", "", "", "", "", "", ""];
+
+let jogoAtivo = true;
 
 // passa casa por casa, igual o i no for
 casas.forEach((casa, c) => { // o "c" é o número de cada casa 
@@ -13,17 +12,15 @@ casas.forEach((casa, c) => { // o "c" é o número de cada casa
 
         if (!jogoAtivo) return; // se o jogo ñ estiver ativo ngm joga
 
-        if (casa.innerText !== "") {
-            alert("Clique em uma casa vazia");
-            return;
-        } else {
-            casa.innerText = jogador; // vai escrever x ou o dentro da div
-            tabuleiro[c] = jogador; // salva no tabuleiro
+        if (casa.innerText !== "") return; // ñ deixa clicar em uma casa q ja esteja ocupada
+        
+        casa.innerText = jogador; // vai escrever x ou o dentro da div
+        tabuleiro[c] = jogador; // salva no tabuleiro
             
-            checarVitória();
-            
-            if (jogoAtivo) mudarJogador(); // se o jogo estiver ativo troca o jogador
-        }
+        checarVitória();
+
+        if (jogoAtivo) mudarJogador(); // se o jogo estiver ativo troca o jogador
+        
     })
 });
 
@@ -45,15 +42,20 @@ function checarVitória() {
 
     for (let [a, b, c] of linhasVitoria) {
         if (tabuleiro[a] !== "" && tabuleiro[a] === tabuleiro[b] && tabuleiro[b] === tabuleiro[c]) {
-            resultado.innerHTML = `Vitória do jogador ${tabuleiro[a].toUpperCase()}!`;
+            resultado.innerHTML = `Vitória do jogador ${tabuleiro[a]}!`.toUpperCase();
             jogoAtivo = false;
             return;
         }
+    } // EMPATE
+    if (!tabuleiro.includes("")) {
+        resultado.innerHTML = 'Deu velha'.toUpperCase();
+        jogoAtivo = false;
     }
-    
 }
 
 function reset() {
-    casas.innerText = "";
-    tabuleiro = "";
+    casas.forEach(casa => casa.innerText = ""); // limpa tds as casas
+    tabuleiro = ["", "", "", "", "", "", "", "", ""]; // zera o tabuleiro
+    jogoAtivo = true; // ativa o jogo
+    resultado.innerHTML = ""; // limpa oo  resultado
 }
